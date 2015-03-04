@@ -13,46 +13,34 @@ namespace trustPilotCodeChal
 {
     class Program
     {
-        static string[] wordlist;
         
-        static string anagram = "poultry outwits ants".Replace(" ", "");
-        static IEnumerable<char> anagramChar = anagram.ToCharArray().OrderBy(a => a);
-        //check string and char counts to match all chars in "poultry outwits ants"
+        
        
         static void Main(string[] args)
         {
+            string[] wordlist;
+            var logFile = File.AppendText(@"log.txt");
+
             DateTime start = DateTime.Now;
+            logFile.WriteLine("Start: " + start.ToString());
+            logFile.AutoFlush = true;
             wordlist = File.ReadAllLines(System.Configuration.ConfigurationManager.AppSettings["wordFile"]);//J:\Documents\download\wordlist testList.txt
-            //var result = File.CreateText(@"J:\Documents\download\result.txt");
+            
 
             List<string> newWordList = Helper.CleanList(wordlist.ToList());
 
-            var phase = Variations.FindPhase(3, newWordList);
-
-            //var c = new Combinatorics.Collections.Variations<string>(newWordList, 3, GenerateOption.WithoutRepetition);
-
-             
-            //c.AsParallel().ForAll((a) =>
-            //    {
-            //        count++;
-            //        string s = string.Join(" ", a);
-
-            //        //System.Diagnostics.Debug.WriteLine(s);
-            //        if (Helper.stringMatchAnagram(s))
-            //        {
-            //            Console.WriteLine(s);
-            //            result.WriteLine(s);
-            //        }
-            //    });
+            var phase = Variations.FindPhase(3, new List<string>(), newWordList);
 
 
-            //result.Flush();
-            //result.Close();
 
-            Console.WriteLine("Done. " + phase);
             DateTime stop = DateTime.Now;
+            logFile.WriteLine("Stop. " + stop.ToString());
+            logFile.WriteLine(stop - start);
+            logFile.WriteLine("Done. " + phase);
+            logFile.Flush();
+            logFile.Close();
 
-            Console.WriteLine(stop - start);
+            logFile.WriteLine("Done. " + (string.IsNullOrWhiteSpace(phase)? "Fail":phase));
             Console.ReadKey();
         }
 

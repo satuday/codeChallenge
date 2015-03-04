@@ -10,14 +10,10 @@ namespace trustPilotCodeChal
     public static class Helper
     {
         static string anagram = "poultry outwits ants".Replace(" ", ""); //ailnprwy oossttttuu 
-        static string anagramSorted = string.Join("", anagram.OrderBy(a => a));
-
         static string hash = "4624d200580677270a54ccff86b9610e";
 
-        static IEnumerable<char> anagramChar = anagram.Replace(" ", "").ToCharArray().Distinct().OrderBy(a => a);
-
         //Match phase with hash.
-        public static bool StringHashMatch(string str)
+        public static bool StringMatchHash(string str)
         {
             if (str.Replace(" ", "").Length == anagram.Length)
             {
