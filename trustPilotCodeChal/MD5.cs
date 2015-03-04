@@ -11,6 +11,8 @@ namespace trustPilotCodeChal
     {
         public static string GetMd5Hash(string input)
         {
+            //MD5 is not thread save, so need to create new every time.
+            //should put in class if not being use in multi thread. 
             MD5 md5 = System.Security.Cryptography.MD5.Create();
 
             // Convert the input string to a byte array and compute the hash. 
@@ -34,7 +36,10 @@ namespace trustPilotCodeChal
         // Verify a hash against a string. 
         public static bool VerifyMd5Hash(string input, string hash)
         {
+            //MD5 is not thread save, so need to create new every time.
+            //should put in class if not being use in multi thread. 
             MD5 md5 = System.Security.Cryptography.MD5.Create();
+
             // Hash the input. 
             string hashOfInput = GetMd5Hash(input);
 

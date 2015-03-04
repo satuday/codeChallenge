@@ -61,7 +61,6 @@
     <Compile Include="MD5.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="test.cs" />
     <Compile Include="Variations.cs" />
   </ItemGroup>
   <ItemGroup>

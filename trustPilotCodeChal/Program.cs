@@ -27,7 +27,7 @@ namespace trustPilotCodeChal
 
             List<string> newWordList = Helper.CleanList(wordlist.ToList());
 
-            var phase = Variations.FindPhase(newWordList);
+            var phase = Variations.FindPhase(3, newWordList);
 
             //var c = new Combinatorics.Collections.Variations<string>(newWordList, 3, GenerateOption.WithoutRepetition);
 

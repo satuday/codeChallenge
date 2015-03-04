@@ -15,7 +15,9 @@ namespace trustPilotCodeChal
         static string hash = "4624d200580677270a54ccff86b9610e";
 
         static IEnumerable<char> anagramChar = anagram.Replace(" ", "").ToCharArray().Distinct().OrderBy(a => a);
-        public static bool stringMatchAnagram(string str)
+
+        //Match phase with hash.
+        public static bool StringHashMatch(string str)
         {
             if (str.Replace(" ", "").Length == anagram.Length)
             {
@@ -28,6 +30,7 @@ namespace trustPilotCodeChal
             return false;
         }
 
+        //Remove Duplicates, sort and remove word that dont have chars in anagram
         public static List<string> CleanList(List<string> wordList)
         {
             List<string> newWordList = new List<string>();
@@ -42,6 +45,7 @@ namespace trustPilotCodeChal
             return newWordList.OrderByDescending(a => a).ToList();
         }
 
+        //Remove words that have chars that appear once.
         public static List<string> RemoveSingleChar(string word,  List<string> wordList)
         {
             
@@ -82,6 +86,7 @@ namespace trustPilotCodeChal
             return result;
         }
 
+        //Remove words that have chars that appear twice.
         public static List<string> Remove2Chars(string word1, string word2, List<string> wordList)
         {
             var result = wordList.Where(a => !a.Equals(word1) || !a.Equals(word2)).ToList();
