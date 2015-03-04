@@ -30,10 +30,10 @@ namespace trustPilotCodeChal
                     tempWords.AddRange(words);
                     tempWords.Add(word);
                     List<string> newList = Helper.RemoveSingleChar(word, elements);
-                    if (tempWords.Count > 1)
-                    {
-                        newList = Helper.Remove2Chars(tempWords[0], tempWords[1], newList);
-                    }
+                    //if (tempWords.Count > 1)
+                    //{
+                    //    newList = Helper.Remove2Chars(tempWords[0], tempWords[1], newList);
+                    //}
                     temp = Variations.FindPhase(k - 1, tempWords, newList);
                     if (!string.IsNullOrWhiteSpace(temp))
                     {
@@ -45,25 +45,33 @@ namespace trustPilotCodeChal
             return phase;
         }
 
+        //find phase with 2 or 3 words
         public static string FindPhase(List<string> elements)
         {
             string phase = "";
-            int count = 0;
-            Parallel.ForEach(elements, (e1, loopstate1) => 
+
+            Parallel.ForEach(elements, (word1, loopstate1) => 
             {
-                List<string> ele2 = Helper.RemoveSingleChar(e1, elements);
-
-                Parallel.ForEach(ele2, (e2, loopstate2) => 
+                List<string> elems2 = Helper.RemoveSingleChar(word1, elements);
+                Parallel.ForEach(elems2, (word2, loopstate2) => 
                 {
-                    List<string> ele3 = Helper.RemoveSingleChar(e2, ele2);                    
-
-                    Parallel.ForEach(ele3, (e3, loopstate3) => 
+                    List<string> elems3 = Helper.RemoveSingleChar(word2, elems2);
+                    string s2 = string.Format("{0}", word1, word2);
+                    //Console.Write("\r" + count); //performance impact...alot
+                    if (Helper.StringMatchHash(s2))
                     {
-                        string s = string.Format("{0} {1} {2}", e1, e2, e3);
+                        phase = s2;
+                        loopstate2.Stop();
+                        loopstate1.Stop();
+                    }
+
+                    Parallel.ForEach(elems3, (word3, loopstate3) => 
+                    {
+                        string s3 = string.Format("{0} {1} {2}", word1, word2, word3);
                         //Console.Write("\r" + count); //performance impact...alot
-                        if (Helper.StringMatchHash(s))
+                        if (Helper.StringMatchHash(s3))
                         {
-                            phase = s;
+                            phase = s3;
                             loopstate3.Stop();
                             loopstate2.Stop();
                             loopstate1.Stop();

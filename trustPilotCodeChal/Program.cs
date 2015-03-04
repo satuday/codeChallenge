@@ -29,18 +29,16 @@ namespace trustPilotCodeChal
 
             List<string> newWordList = Helper.CleanList(wordlist.ToList());
 
-            var phase = Variations.FindPhase(3, new List<string>(), newWordList);
-
-
+            var phase = Variations.FindPhase(newWordList);
 
             DateTime stop = DateTime.Now;
             logFile.WriteLine("Stop. " + stop.ToString());
             logFile.WriteLine(stop - start);
-            logFile.WriteLine("Done. " + phase);
+            logFile.WriteLine("Done. " + (string.IsNullOrWhiteSpace(phase) ? "Fail" : phase));
             logFile.Flush();
             logFile.Close();
 
-            logFile.WriteLine("Done. " + (string.IsNullOrWhiteSpace(phase)? "Fail":phase));
+            Console.WriteLine("Done. " + (string.IsNullOrWhiteSpace(phase) ? "Fail" : phase));
             Console.ReadKey();
         }
 

@@ -30,9 +30,9 @@ namespace trustPilotCodeChal
         public static List<string> CleanList(List<string> wordList)
         {
             List<string> newWordList = new List<string>();
-            wordList.Distinct().ToList().ForEach(a =>
+            wordList.Distinct().ToList().ForEach(a => //remove duplicate
             {
-                if (a.ToCharArray().ToList().TrueForAll(b => anagram.Contains(b)))
+                if (a.ToCharArray().ToList().TrueForAll(b => anagram.Contains(b))) // remove words that have characters no in the anagram
                 {
                     newWordList.Add(a);
                 }
