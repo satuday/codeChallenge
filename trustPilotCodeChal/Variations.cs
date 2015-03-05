@@ -9,6 +9,7 @@ namespace trustPilotCodeChal
 {
     public static class Variations
     {
+        //find phase with up to k words.
         public static string FindPhase(int k, List<string> words, List<string> elements)
         {
             string phase = string.Empty;
@@ -30,10 +31,6 @@ namespace trustPilotCodeChal
                     tempWords.AddRange(words);
                     tempWords.Add(word);
                     List<string> newList = Helper.RemoveSingleChar(word, elements);
-                    //if (tempWords.Count > 1)
-                    //{
-                    //    newList = Helper.Remove2Chars(tempWords[0], tempWords[1], newList);
-                    //}
                     temp = Variations.FindPhase(k - 1, tempWords, newList);
                     if (!string.IsNullOrWhiteSpace(temp))
                     {
@@ -57,7 +54,7 @@ namespace trustPilotCodeChal
                 {
                     List<string> elems3 = Helper.RemoveSingleChar(word2, elems2);
                     string s2 = string.Format("{0}", word1, word2);
-                    //Console.Write("\r" + count); //performance impact...alot
+                    //Console.Write("\r" + count); 
                     if (Helper.StringMatchHash(s2))
                     {
                         phase = s2;
@@ -68,7 +65,7 @@ namespace trustPilotCodeChal
                     Parallel.ForEach(elems3, (word3, loopstate3) => 
                     {
                         string s3 = string.Format("{0} {1} {2}", word1, word2, word3);
-                        //Console.Write("\r" + count); //performance impact...alot
+                        //Console.Write("\r" + count); 
                         if (Helper.StringMatchHash(s3))
                         {
                             phase = s3;

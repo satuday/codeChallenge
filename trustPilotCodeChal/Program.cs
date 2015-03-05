@@ -29,7 +29,7 @@ namespace trustPilotCodeChal
 
             List<string> newWordList = Helper.CleanList(wordlist.ToList());
 
-            var phase = Variations.FindPhase(newWordList);
+            var phase = Variations.FindPhase(3, new List<string>(), newWordList);
 
             DateTime stop = DateTime.Now;
             logFile.WriteLine("Stop. " + stop.ToString());
